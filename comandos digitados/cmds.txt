@@ -1,0 +1,15 @@
+cd /d/estudos/uc11
+git init
+git add .
+git commit -m "Upload inicial do projeto NetBeans"
+git push origin main
+git status
+git remote remove origin
+git remote add origin https://github.com/incyakj22/casa-de-leiloes.git
+git pull origin main --allow-unrelated-histories
+git push origin main
+rm -rf atvd22/.git
+git add atvd22/
+git commit -m "Corrigindo pasta atvd22 para ser parte do repositório"
+git push origin main
+

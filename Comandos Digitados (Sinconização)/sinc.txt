@@ -1,5 +1,0 @@
-git pull origin main > Traz todas as alterações do repositório remoto para o local.
-
-git fetch --all > Obtém todas as mudanças remotas sem mesclar automaticamente.
-
-git merge origin/main > Mescla alterações baixadas com a versão local.

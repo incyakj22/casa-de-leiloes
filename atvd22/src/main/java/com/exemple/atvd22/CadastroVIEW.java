@@ -1,60 +1,51 @@
 package com.exemple.atvd22;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 
 public class CadastroVIEW extends JFrame {
-    private JTextField txtNome;
-    private JTextField txtValor;
-    private JButton btnSalvar;
+    private JTextField txtNome, txtValor;
+    private JButton btnCadastrar, btnListar, btnVendas;
 
     public CadastroVIEW() {
-        setTitle("Tela de Cadastro");
-        setSize(400, 200);
+        setTitle("Cadastro de Produtos");
+        setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(null);
-
-        JLabel lblNome = new JLabel("Nome:");
-        lblNome.setBounds(20, 20, 100, 30);
-        add(lblNome);
+        setLayout(new GridLayout(4, 1, 10, 10));
 
         txtNome = new JTextField();
-        txtNome.setBounds(120, 20, 200, 30);
-        add(txtNome);
-
-        JLabel lblValor = new JLabel("Valor:");
-        lblValor.setBounds(20, 60, 100, 30);
-        add(lblValor);
-
         txtValor = new JTextField();
-        txtValor.setBounds(120, 60, 200, 30);
+        btnCadastrar = new JButton("Cadastrar Produto");
+        btnListar = new JButton("Listar Produtos");
+        btnVendas = new JButton("Consultar Vendas");
+
+        add(new JLabel("Nome do Produto:"));
+        add(txtNome);
+        add(new JLabel("Valor:"));
         add(txtValor);
+        add(btnCadastrar);
+        add(btnListar);
+        add(btnVendas);
 
-        btnSalvar = new JButton("Salvar");
-        btnSalvar.setBounds(120, 100, 100, 30);
-        add(btnSalvar);
+        btnCadastrar.addActionListener(e -> cadastrarProduto());
+        btnListar.addActionListener(e -> new ListagemVIEW());
+        btnVendas.addActionListener(e -> new VendasVIEW());
 
-        btnSalvar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String nome = txtNome.getText();
-                    double valor = Double.parseDouble(txtValor.getText());
-
-                    CadastroController controller = new CadastroController();
-                    if (controller.salvarItem(nome, valor)) {
-                        JOptionPane.showMessageDialog(null, "✅ Item cadastrado com sucesso!");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "❌ Erro ao cadastrar o item. Verifique a conexão!");
-                    }
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "❌ O campo 'Valor' deve ser um número válido!", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
-                } catch (IllegalArgumentException ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-
+        setLocationRelativeTo(null);
         setVisible(true);
     }
+
+    private void cadastrarProduto() {
+        String nome = txtNome.getText();
+        double valor = Double.parseDouble(txtValor.getText());
+        Produto produto = new Produto(0, nome, valor, "Disponível");
+
+        JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+    }
+
+    public static void main(String[] args) {
+        new CadastroVIEW();
+    }
 }
+
+
